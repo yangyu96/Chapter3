@@ -1,0 +1,59 @@
+DAO METHODS ---->
+
+public boolean Ifappexists(Student student) 
+	{
+		
+		boolean  flag = false ;
+        int temp = -999 ;
+		try {
+			ps = con.prepareStatement("SELECT * FROM application where StudentId = ?") ;
+			ps.setInt(1, student.getStudentId());
+			temp = ps.executeUpdate();
+			if(temp!=0)
+			{
+				flag=true;
+			}
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+public ResultSet FetchApplicationDetails(Student student)
+	{
+		try {
+			ps = con.prepareStatement("SELECT * FROM application where StudentId = ?") ;
+			
+			ps.setInt(1, student.getStudentId());
+			
+		    rs = ps.executeQuery() ;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs ;
+	}
+--------------------------------------------------------DAO ENDS--------------------------------------------------------	
+
+--------------------------------------------------------MODEL BEGINS----------------------------------------------------
+
+	public ResultSet FetchApplicationDetails(Student student)
+	{
+		
+		rs = dao.FetchApplicationDetails(student);
+		
+		return rs ;
+	}
+
+	public boolean Ifappexists(Student student)
+	{
+		boolean flag;
+		flag=dao.Ifappexists(student);
+		return flag;
+	}
+------------------------------------------------------MODEL ENDS-------------------------------------------------------------
